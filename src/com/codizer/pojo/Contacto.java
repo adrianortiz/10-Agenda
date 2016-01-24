@@ -1,4 +1,6 @@
-package modelo;
+package com.codizer.pojo;
+
+import java.sql.Timestamp;
 
 /**
  * 
@@ -6,97 +8,57 @@ package modelo;
  *
  */
 public class Contacto {
-	
+
+	private int id;
 	private String nombre;
 	private String apellidos;
 	private String empresa;
-	
+
 	private String telefono;
 	private String celular;
 	private String correo;
 	private String url;
-	
+
 	// Dirección
 	private String calle;
 	private String num;
 	private String cp;
 	private String ciudad;
 	private String estado;
-	
-	private String fNacimiento;
+
+	private Timestamp fNacimiento;
 	private String redSocial;
-	
+
 	private String nota;
-	
-	public Contacto(){}
-	
+
 	/**
-	 * 
-	 * @param nombre
-	 * @param apellidos
-	 * @param empresa
-	 * @param telefono
-	 * @param celular
-	 * @param correo
-	 * @param url
-	 * @param calle
-	 * @param num
-	 * @param cp
-	 * @param ciudad
-	 * @param estado
-	 * @param fNacimiento
-	 * @param redSocial
-	 * @param nota
+	 * Obtener el id de un Contacto
+	 * @return id de tipo Int
 	 */
-	public Contacto(String nombre, String apellidos, String empresa, String telefono, String celular, String correo,
-			String url, String calle, String num, String cp, String ciudad, String estado, String fNacimiento,
-			String redSocial, String nota) {
-		super();
-		this.nombre = nombre;
-		this.apellidos = apellidos;
-		this.empresa = empresa;
-		this.telefono = telefono;
-		this.celular = celular;
-		this.correo = correo;
-		this.url = url;
-		this.calle = calle;
-		this.num = num;
-		this.cp = cp;
-		this.ciudad = ciudad;
-		this.estado = estado;
-		this.fNacimiento = fNacimiento;
-		this.redSocial = redSocial;
-		this.nota = nota;
+	public int getId() {
+		return id;
 	}
 
 	/**
-	 * 
-	 * @return
+	 * Asignar el id de un Contacto
+	 * @param id de tipo Int
 	 */
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public String getNombre() {
 		return nombre;
 	}
 
-	/**
-	 * 
-	 * @param nombre
-	 */
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
 	public String getApellidos() {
 		return apellidos;
 	}
 
-	/**
-	 * 
-	 * @param apellidos
-	 */
 	public void setApellidos(String apellidos) {
 		this.apellidos = apellidos;
 	}
@@ -181,11 +143,11 @@ public class Contacto {
 		this.estado = estado;
 	}
 
-	public String getfNacimiento() {
+	public Timestamp getfNacimiento() {
 		return fNacimiento;
 	}
 
-	public void setfNacimiento(String fNacimiento) {
+	public void setfNacimiento(Timestamp fNacimiento) {
 		this.fNacimiento = fNacimiento;
 	}
 
@@ -202,17 +164,23 @@ public class Contacto {
 	}
 
 	public void setNota(String nota) {
-		this.nota = nota;
+		this.nota = nota; 
 	}
 
+	/**
+	 * Retorna la información de un objeto Contacto
+	 * 
+	 * @return Información Contacto de tipo String
+	 */
 	@Override
 	public String toString() {
-		return "Contacto [nombre=" + nombre + ", apellidos=" + apellidos + ", empresa=" + empresa + ", telefono="
-				+ telefono + ", celular=" + celular + ", correo=" + correo + ", url=" + url + ", calle=" + calle
-				+ ", num=" + num + ", cp=" + cp + ", ciudad=" + ciudad + ", estado=" + estado + ", fNacimiento="
+		return "Contacto [id=" + id + ", nombre=" + nombre + ", apellidos=" + apellidos + ", empresa=" + empresa
+				+ ", telefono=" + telefono + ", celular=" + celular + ", correo=" + correo + ", url=" + url + ", calle="
+				+ calle + ", num=" + num + ", cp=" + cp + ", ciudad=" + ciudad + ", estado=" + estado + ", fNacimiento="
 				+ fNacimiento + ", redSocial=" + redSocial + ", nota=" + nota + "]";
 	}
 	
 	
+
 	
 }
