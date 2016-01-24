@@ -1,3 +1,3 @@
 # 10-Agenda
 
-My contacts on an simple java application.
+My contacts on a simple JAVA Application.
