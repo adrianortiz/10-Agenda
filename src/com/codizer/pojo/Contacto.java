@@ -19,15 +19,15 @@ public class Contacto {
 	private String correo;
 	private String url;
 
-	// Dirección
-	private String calle;
-	private String num;
-	private String cp;
-	private String ciudad;
-	private String estado;
-
 	private Timestamp fNacimiento;
 	private String redSocial;
+	
+	// Dirección
+	private String calle;
+	private int num;
+	private int cp;
+	private String ciudad;
+	private String estado;
 
 	private String nota;
 
@@ -111,19 +111,19 @@ public class Contacto {
 		this.calle = calle;
 	}
 
-	public String getNum() {
+	public int getNum() {
 		return num;
 	}
 
-	public void setNum(String num) {
+	public void setNum(int num) {
 		this.num = num;
 	}
 
-	public String getCp() {
+	public int getCp() {
 		return cp;
 	}
 
-	public void setCp(String cp) {
+	public void setCp(int cp) {
 		this.cp = cp;
 	}
 

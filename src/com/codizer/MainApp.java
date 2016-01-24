@@ -43,31 +43,31 @@ public class MainApp {
 //			contactoDao.save(contacto); 
 			
 			
-			List<Contacto> contactos = contactoDao.findAll();
-			for (Contacto contacto2 : contactos) {
-				System.out.println(contacto2);
-			}
+//			List<Contacto> contactos = contactoDao.findAll();
+//			for (Contacto contacto2 : contactos) {
+//				System.out.println(contacto2);
+//			}
 			
 			
-//			Contacto contacto2 = contactoDao.findById(3);
-//			System.out.println("-> " + contacto2);
-//			contacto2.setNombre("Roberto");
-//			contacto2.setApellidos("Moran Alvarado");
-//			contactoDao.update(contacto2);
-//			contacto2 = contactoDao.findById(3);
-//			System.out.println("--> " + contacto2);
+			Contacto contacto2 = contactoDao.findById(5);
+			System.out.println("-> " + contacto2);
+			contacto2.setNombre("Roberto");
+			contacto2.setApellidos("Moran Alvarado");
+			contactoDao.update(contacto2);
+			contacto2 = contactoDao.findById(3);
+			System.out.println("--> " + contacto2);
 			
 			
 //			System.out.println(contactoDao.findById(2));
 			
 //			System.out.println(contactoDao.findByName("a").toString());
 			
-			if (contactoDao.delete(3)) {
-				System.out.println("Contacto eliminado");
-				
-			} else {
-				System.out.println("Error");
-			}
+//			if (contactoDao.delete(3)) {
+//				System.out.println("Contacto eliminado");
+//				
+//			} else {
+//				System.out.println("Error");
+//			}
 			
 		
 		} catch (CannotGetJdbcConnectionException e) {

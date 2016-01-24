@@ -25,7 +25,19 @@ public class ContactoRowMapper implements RowMapper<Contacto>{
 		contacto.setId(rs.getInt("id"));
 		contacto.setNombre(rs.getString("nombre"));
 		contacto.setApellidos(rs.getString("apellidos"));
+		contacto.setEmpresa(rs.getString("empresa"));
+		contacto.setTelefono(rs.getString("telefono"));
+		contacto.setCelular(rs.getString("celular"));
+		contacto.setCorreo(rs.getString("correo"));
+		contacto.setUrl(rs.getString("url"));
 		contacto.setfNacimiento(rs.getTimestamp("fNacimiento"));
+		contacto.setRedSocial(rs.getString("redSocial"));
+		contacto.setCalle(rs.getString("calle"));
+		contacto.setNum(rs.getInt("num"));
+		contacto.setCp(rs.getInt("cp"));
+		contacto.setCiudad(rs.getString("ciudad"));
+		contacto.setEstado(rs.getString("estado"));
+		contacto.setNota(rs.getString("nota"));
 		
 		return contacto;
 	}

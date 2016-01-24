@@ -59,7 +59,7 @@ public class ContactoDaoImpl implements ContactoDao {
 		BeanPropertySqlParameterSource paramMap = new BeanPropertySqlParameterSource(contacto);
 
 		return JdbcTemplate.update(
-				"INSERT INTO Contacto (nombre, apellidos, empresa, telefono, celular, correo, url, fNacimiento, redSocial, calle, num, cp, ciudad, estado) VALUES (:nombre, :apellidos, :empresa, :telefono, :celular, :correo, :url, :fNacimiento, :redSocial, :calle, :num, :cp, :ciudad, :estado)",
+				"INSERT INTO Contacto (nombre, apellidos, empresa, telefono, celular, correo, url, fNacimiento, redSocial, calle, num, cp, ciudad, estado, nota) VALUES (:nombre, :apellidos, :empresa, :telefono, :celular, :correo, :url, :fNacimiento, :redSocial, :calle, :num, :cp, :ciudad, :estado, :nota)",
 				paramMap) == 1;
 	}
 
@@ -73,7 +73,7 @@ public class ContactoDaoImpl implements ContactoDao {
 	 */
 	@Override
 	public boolean update(Contacto contacto) {
-		return JdbcTemplate.update("UPDATE Contacto set nombre=:nombre, apellidos=:apellidos, empresa=:empresa, telefono=:telefono, celular=:celular, correo=:correo, url=:url, fNacimiento=:fNacimiento, redSocial=:redSocial, calle=:calle, num=:num, cp=:cp, ciudad=:ciudad, estado=:estado WHERE id=:id", 
+		return JdbcTemplate.update("UPDATE Contacto set nombre=:nombre, apellidos=:apellidos, empresa=:empresa, telefono=:telefono, celular=:celular, correo=:correo, url=:url, fNacimiento=:fNacimiento, redSocial=:redSocial, calle=:calle, num=:num, cp=:cp, ciudad=:ciudad, estado=:estado, nota=:nota WHERE id=:id", 
 				new BeanPropertySqlParameterSource(contacto)) == 1;
 	}
 
