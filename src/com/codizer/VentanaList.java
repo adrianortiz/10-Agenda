@@ -5,6 +5,12 @@ import java.awt.Container;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -13,14 +19,11 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import org.springframework.context.ApplicationContext;
@@ -34,7 +37,7 @@ import com.codizer.pojo.Contacto;
  * @author Adrian
  *
  */
-public class VentanaList extends JFrame implements ActionListener {
+public class VentanaList extends JFrame implements ActionListener, MouseListener, WindowListener, KeyListener {
 
 	/**
 	 * 
@@ -46,10 +49,7 @@ public class VentanaList extends JFrame implements ActionListener {
 	private JTextField txtBuscar = new JTextField();
 
 	private JTable table = new JTable();
-	private JScrollPane pane = new JScrollPane(table);
-	private DefaultTableModel columnas = new DefaultTableModel();
-	private String[] data = new String[2];
-	private ListSelectionModel model = table.getSelectionModel();
+	private JScrollPane jScrollPane = new JScrollPane();
 	
 	private Color blanco = new Color(250, 250, 250);
 	private Color negro = new Color(000, 000, 000);
@@ -65,12 +65,13 @@ public class VentanaList extends JFrame implements ActionListener {
 
 	// Inyectar Bean por identificador
 	private ContactoDao contactoDao = (ContactoDao) applicationContext.getBean("contactDao");
-	private List<Contacto> contactos = contactoDao.findAll();
 	
 	Container c = getContentPane();
 	
 	/**
-	 * 
+	 * Constructo base
+	 * realiza la llamada y carga de los componenetes de la UI
+	 * y la información a consumir de la BD
 	 */
 	public VentanaList() {
 
@@ -80,14 +81,17 @@ public class VentanaList extends JFrame implements ActionListener {
 		super.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		super.setLocationRelativeTo(null);
 		super.setResizable(false);
-
-		cargarData();
+		
+		super.addWindowListener(this);
+		
+		mostrarBuscarDatos("");
 		cargarControles();
 	}
 	
 
 	/**
-	 * 
+	 * Cargar los controles de la UI
+	 * También asigna eventos a algunos componentes
 	 */
 	private void cargarControles() {
 		c.setLayout(null);
@@ -104,67 +108,162 @@ public class VentanaList extends JFrame implements ActionListener {
 		btnNuevo.setForeground(azul);
 		btnNuevo.setBackground(blanco);
 		btnNuevo.setFont(new Font("Helvetica Neue", Font.PLAIN, 30));
+		
 		btnNuevo.setBounds(280, 10, 30, 30);
-		
 		txtBuscar.setBounds(10, 58, 300, 35);
+		jScrollPane.setBounds(0, 100, 320, 430);
 		
-		table.setRowHeight(36);
-		table.getColumnModel().getColumn(1).setPreferredWidth(20);
-		table.getColumnModel().getColumn(0).setPreferredWidth(300);
-		
-		pane.setBounds(0, 100, 320, 450);
+		jScrollPane.setViewportView(table);
 		
 		c.add(txtBuscar);
 		c.add(btnNuevo);
 		c.add(lbTodos);
-		c.add(pane);
+		c.add(jScrollPane);
 		
 		btnNuevo.addActionListener(this);
+		
+		table.addMouseListener(this);
+		txtBuscar.addKeyListener(this);
 	}
+	
+	
+	/**
+	 * Muestra los contactos en un JTable,
+	 * si el parametro está vacío, de lo contrario
+	 * busca contactos en base al nombre
+	 * 
+	 * @param nombre Cadena de texto
+	 */
+	public void mostrarBuscarDatos(String nombre) {
+		
+        DefaultTableModel modelo = new DefaultTableModel();
+        
+        modelo.addColumn("");
+        modelo.addColumn("");
+        
+        table.setModel(modelo);
+        
+        String []datos = new String[2];
+        
+        List<Contacto> contactos;
+        
+        if(nombre.equals("")) {
+        	contactos = contactoDao.findAll();
+        } else {
+        	contactos = contactoDao.findByName(nombre);
+        }
+       
+        for (Contacto contacto : contactos) {
+        	datos[0] = String.format("   %s %s", contacto.getNombre(), contacto.getApellidos());
+        	datos[1] = Integer.toString(contacto.getId());
+        	modelo.addRow(datos);
+		}
+        
+        table.setRowHeight(36);
+		table.getColumnModel().getColumn(1).setPreferredWidth(20);
+		table.getColumnModel().getColumn(0).setPreferredWidth(300);
+    }
+
 
 	/**
-	 * 
+	 * Evento que inicia el JFrame de un nuevo
+	 * contacto.
 	 */
-	private void cargarData() {
+	@Override
+	public void actionPerformed(ActionEvent e) {
 		
-		columnas.addColumn("");
-		columnas.addColumn("");
-
-		table.setModel(columnas);
-
-		for (Contacto contacto2 : contactos) {
-			
-			data[0] = String.format("   %s %s", contacto2.getNombre(), contacto2.getApellidos());
-			data[1] = Integer.toString(contacto2.getId());
-			columnas.addRow(data);
+		if (e.getSource() == btnNuevo) {
+			VentanaNewEdit ventanaNew = new VentanaNewEdit("");
+			ventanaNew.setVisible(true);
+			// dispose();
 		}
-		
-		model.addListSelectionListener(new ListSelectionListener() {
-			
-			@Override
-			public void valueChanged(ListSelectionEvent e) {
-				int fila = table.getSelectedRow();
-				
-				if (fila >= 0) {
-					VentanaView ventanaView = new VentanaView((String) table.getValueAt(fila, 1));
-					ventanaView.setVisible(true);
-				}
-			}
-		});
 	}
 
 
-	public static void main(String[] args) {
-		VentanaList s = new VentanaList();
-		s.setVisible(true);
+	/**
+	 * Evento que identifica en cuál fila se realizo
+	 * para extraer información y mostrar el JFrame
+	 * de consulta de contactos
+	 */
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		int filaSeleccionada = table.rowAtPoint(e.getPoint());
+		if(filaSeleccionada != -1) {
+			VentanaView ventanaView = new VentanaView((String) table.getValueAt(filaSeleccionada, 1));
+			ventanaView.setVisible(true);
+		}
 	}
 
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		VentanaNew ventanaNew = new VentanaNew();
-		ventanaNew.setVisible(true);
-		// dispose();
+	public void mousePressed(MouseEvent e) {}
+
+
+	@Override
+	public void mouseReleased(MouseEvent e) {}
+
+
+	@Override
+	public void mouseEntered(MouseEvent e) {}
+
+
+	@Override
+	public void mouseExited(MouseEvent e) {}
+
+
+	@Override
+	public void windowOpened(WindowEvent e) {}
+
+
+	@Override
+	public void windowClosing(WindowEvent e) {}
+
+
+	@Override
+	public void windowClosed(WindowEvent e) {}
+
+
+	@Override
+	public void windowIconified(WindowEvent e) {}
+
+
+	@Override
+	public void windowDeiconified(WindowEvent e) {}
+
+
+	/**
+	 * Evento que se lanza al tener la ventana desactivada
+	 * a activada, actualiza los contactos de la JTable
+	 * a la base de datos
+	 */
+	@Override
+	public void windowActivated(WindowEvent e) {
+		mostrarBuscarDatos("");
+		txtBuscar.setText("");
+	}
+
+
+	@Override
+	public void windowDeactivated(WindowEvent e) {}
+
+
+	@Override
+	public void keyTyped(KeyEvent e) {}
+
+
+	@Override
+	public void keyPressed(KeyEvent e) {}
+
+
+	/**
+	 * Evento que se lanza al escribir en un JTextField
+	 * para realizar busquedas en base al nombre de
+	 * un contacto, permitiendo filtrar la 
+	 * información en tiempo real.
+	 */
+	@Override
+	public void keyReleased(KeyEvent e) {
+		mostrarBuscarDatos(txtBuscar.getText());
 	}
 
 

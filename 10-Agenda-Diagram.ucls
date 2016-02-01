@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.9" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
+  <class id="1" language="java" name="com.codizer.VentanaNewEdit" project="10-Agenda" 
+    file="/10-Agenda/src/com/codizer/VentanaNewEdit.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="1163" width="237" x="455" y="-291"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <package id="2" language="java" name="com.codizer.pojo" project="10-Agenda" file="/10-Agenda/src/com/codizer/pojo" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="52" width="142" x="108" y="-291"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <class id="3" language="java" name="com.codizer.MainApp" project="10-Agenda" 
+    file="/10-Agenda/src/com/codizer/MainApp.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="101" width="125" x="290" y="-291"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="com.codizer.dao.ContactoDaoImpl" project="10-Agenda" 
+    file="/10-Agenda/src/com/codizer/dao/ContactoDaoImpl.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="227" width="283" x="732" y="-291"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="com.codizer.VentanaList" project="10-Agenda" 
+    file="/10-Agenda/src/com/codizer/VentanaList.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="677" width="242" x="1055" y="-291"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="com.codizer.pojo.Contacto" project="10-Agenda" 
+    file="/10-Agenda/src/com/codizer/pojo/Contacto.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="965" width="201" x="1619" y="-291"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <package id="7" language="java" name="com.codizer" project="10-Agenda" file="/10-Agenda/src/com/codizer" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="52" width="115" x="1860" y="-291"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <class id="8" language="java" name="com.codizer.VentanaView" project="10-Agenda" 
+    file="/10-Agenda/src/com/codizer/VentanaView.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="1019" width="242" x="1337" y="-291"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <package id="9" language="java" name="com.codizer.img" project="10-Agenda" file="/10-Agenda/src/com/codizer/img" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="52" width="136" x="2015" y="-291"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="10" language="java" name="com.codizer.dao" project="10-Agenda" file="/10-Agenda/src/com/codizer/dao" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="52" width="137" x="2191" y="-291"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <interface id="11" language="java" name="com.codizer.dao.ContactoDao" project="10-Agenda" 
+    file="/10-Agenda/src/com/codizer/dao/ContactoDao.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="173" width="218" x="895" y="912"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="12" language="java" name="com.codizer.pojo.ContactoRowMapper" project="10-Agenda" 
+    file="/10-Agenda/src/com/codizer/pojo/ContactoRowMapper.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="101" width="204" x="2368" y="-291"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <association id="13">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="14" name="contactoDao"/>      
+      <multiplicity id="15" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="16">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="11"/>  
+  </realization>  
+  <association id="17">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="18" name="contactoDao"/>      
+      <multiplicity id="19" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="20">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="21" name="contactoDao"/>      
+      <multiplicity id="22" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

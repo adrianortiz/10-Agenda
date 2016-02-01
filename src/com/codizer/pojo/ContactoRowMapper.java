@@ -15,7 +15,7 @@ public class ContactoRowMapper implements RowMapper<Contacto>{
 	/**
 	 * Mapea las tuplas de una consulta y retorna objetos de tipo Contacto
 	 * 
-	 * @param Contacto obtenidos de una consulta
+	 * @param Contacto obtenido de una consulta
 	 */
 	@Override
 	public Contacto mapRow(ResultSet rs, int rowNum) throws SQLException {

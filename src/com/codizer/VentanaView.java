@@ -2,15 +2,20 @@ package com.codizer;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.HeadlessException;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JTextField;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
@@ -23,7 +28,12 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.codizer.dao.ContactoDao;
 import com.codizer.pojo.Contacto;
 
-public class VentanaView extends JFrame {
+/**
+ * 
+ * @author Adrian
+ *
+ */
+public class VentanaView extends JFrame implements WindowListener, ActionListener {
 	
 	/**
 	 * 
@@ -35,31 +45,46 @@ public class VentanaView extends JFrame {
 	private JLabel lbNavigateBar = new JLabel();
 	private JButton btnEditar = new JButton("Editar");
 	
-	ImageIcon image = new ImageIcon("/Users/Codizer/Dropbox/dev/Eclipse/10-Agenda/src/com/codizer/img/img.png");
+	private ImageIcon image = new ImageIcon("../10-Agenda/src/com/codizer/img/img.png");
 	private JLabel fotoContacto = new JLabel(image);
 	
-	private JLabel nombreCompleto = new JLabel();
-	private JLabel empresa = new JLabel();
+	private JLabel lbNombreCompleto = new JLabel();
+	private JLabel lbeEmpresa = new JLabel();
 	
-	private JLabel lbCelular = new JLabel("Celular");
-	private JLabel celular = new JLabel();
+	private JLabel lbCelularInfo = new JLabel("Celular");
+	private JLabel lbCelular = new JLabel();
 	
-	private JLabel lbTelefono = new JLabel("Telefono");
-	private JLabel telefono = new JLabel();
+	private JLabel lbTelefonoInfo = new JLabel("Telefono");
+	private JLabel lbTelefono = new JLabel();
 	
-	private JLabel correo = new JLabel();
-	private JLabel url = new JLabel();
-	private JLabel fNacimiento = new JLabel();
-	private JLabel redSocial = new JLabel();
-	private JLabel calle = new JLabel();
-	private JLabel num = new JLabel();
-	private JLabel cp = new JLabel();
-	private JLabel ciudad = new JLabel();
-	private JLabel estado = new JLabel();
+	private JLabel lbCorreoInfo = new JLabel("Correo");
+	private JLabel lbCorreo = new JLabel();
+	
+	private JLabel lbUrlInfo = new JLabel("URL");
+	private JLabel lbUrl = new JLabel();
+	
+	private JLabel lbRedSocialInfo = new JLabel("Red social");
+	private JLabel lbRedSocial = new JLabel();
+	
+	private JLabel lbFNacimientoInfo = new JLabel("Cumpleaños");
+	private JLabel lbFNacimiento = new JLabel();
+	
+	private JLabel lbDireccionInfo = new JLabel("Dirección");
+	private JLabel lbCalle = new JLabel();
+	private JLabel lbNum = new JLabel();
+	private JLabel lbCP = new JLabel();
+	private JLabel lbCiudad = new JLabel();
+	private JLabel lbEstado = new JLabel();
+	private JLabel lbNotaInfo = new JLabel("Nota");
+	private JLabel lbNota = new JLabel();
+	
+	private JLabel[] lbEtiquetas = {fotoContacto, lbNombreCompleto, lbeEmpresa, lbCelularInfo, lbCelular, lbCelular, lbTelefonoInfo, lbTelefono,
+			lbTelefono, lbCorreoInfo, lbCorreo, lbUrlInfo, lbUrl, lbRedSocialInfo, lbRedSocial, lbFNacimientoInfo, lbFNacimiento, lbDireccionInfo,
+			lbCalle, lbNum, lbCP, lbCiudad, lbEstado, lbNota, lbNotaInfo
+	};
 	
 	private Color blancoLi = new Color(255, 255, 255);
 	private Color blanco = new Color(250, 250, 250);
-	private Color negro = new Color(000, 000, 000);
 	private Color gris = new Color(223, 223, 223);
 	private Color azul = new Color(73, 144, 222);
 	
@@ -76,10 +101,19 @@ public class VentanaView extends JFrame {
 	// Inyectar Bean por identificador
 	private ContactoDao contactoDao = (ContactoDao) applicationContext.getBean("contactDao");
 	
-	
+	/**
+	 * Constrictor base
+	 */
 	public VentanaView(){}
 
-	public VentanaView( String id ) {
+	/**
+	 * Constructor que cargar los componentes de 
+	 * la UI, recibe un paramatro que pertenece
+	 * al id de un contacto especifico.
+	 * 
+	 * @param id Clave de un contacto en Cadena
+	 */
+	public VentanaView(String id) {
 		
 		this.id = id;
 		
@@ -90,24 +124,39 @@ public class VentanaView extends JFrame {
 		super.setLocationRelativeTo(null);
 		super.setResizable(false);
 		
-		cargarData();
 		cargarControles();
+		super.addWindowListener(this);
 	}
 
 	/**
-	 * 
+	 * Cargar la información de un contacto especifico
+	 * en base a una busqueda por ID, para asi
+	 * asignar la información del contacto
+	 * a los componentes de la UI.
 	 */
 	private void cargarData() {
+		
 		Contacto leerContacto = contactoDao.findById(Integer.parseInt(id));
 		
-		nombreCompleto.setText(leerContacto.getNombre() + " " + leerContacto.getApellidos());
-		empresa.setText(leerContacto.getEmpresa());
-		celular.setText(leerContacto.getCelular());
-		telefono.setText(leerContacto.getTelefono());
-
+		lbNombreCompleto.setText(leerContacto.getNombre() + " " + leerContacto.getApellidos());
+		lbeEmpresa.setText(leerContacto.getEmpresa());
+		lbCelular.setText(leerContacto.getCelular());
+		lbTelefono.setText(leerContacto.getTelefono());
+		lbCorreo.setText(leerContacto.getCorreo());
+		lbUrl.setText(leerContacto.getUrl());
+		lbRedSocial.setText(leerContacto.getRedSocial());
+		lbFNacimiento.setText("" + leerContacto.getfNacimiento());
+		lbCalle.setText(leerContacto.getCalle()); 
+		lbNum.setText(Integer.toString(leerContacto.getNum()));
+		lbCP.setText(Integer.toString(leerContacto.getCp()));
+		lbCiudad.setText(leerContacto.getCiudad());
+		lbEstado.setText(leerContacto.getEstado());
+		lbNota.setText(leerContacto.getNota());
 	}
 	
 	/**
+	 * Cargar componentes de la UI al JFrame
+	 * o a los paneles de la UI
 	 * 
 	 */
 	private void cargarControles() {
@@ -125,35 +174,127 @@ public class VentanaView extends JFrame {
 		btnEditar.setFont(medFont);
 		btnEditar.setBounds(230, 10, 100, 30);
 		
-		fotoContacto.setBounds(20, 60, 60, 60);
+		fotoContacto.setBounds(20, 10, 60, 60);
 		
-		nombreCompleto.setFont(medFont);
-		nombreCompleto.setBounds(100, 65, 210, 30);
-		empresa.setBounds(100, 85, 210, 30);
+		lbNombreCompleto.setFont(medFont);
+		lbNombreCompleto.setBounds(100, 15, 210, 30);
+		lbeEmpresa.setBounds(100, 35, 210, 30);
 		
-		lbCelular.setForeground(azul);
-		lbCelular.setFont(miniFont);
-		lbCelular.setBounds(25, 145, 300, 10);
-		celular.setBounds(25, 155, 300, 30);
+		lbCelularInfo.setForeground(azul);
+		lbCelularInfo.setFont(miniFont);
+		lbCelularInfo.setBounds(25, 95, 300, 10);
+		lbCelular.setBounds(25, 105, 300, 30);
 		
-		lbTelefono.setForeground(azul);
-		lbTelefono.setFont(miniFont);
-		lbTelefono.setBounds(25, 185, 300, 30);
-		telefono.setBorder(borderButtom);
-		telefono.setBounds(25, 210, 300, 30);
+		lbTelefonoInfo.setForeground(azul);
+		lbTelefonoInfo.setFont(miniFont);
+		lbTelefonoInfo.setBounds(25, 140, 300, 30);
+		lbTelefono.setBorder(borderButtom);
+		lbTelefono.setBounds(25, 160, 300, 30);
 		
-		c.add(celular);
-		c.add(empresa);
-		c.add(nombreCompleto);
-		c.add(fotoContacto);
+		lbCorreoInfo.setForeground(azul);
+		lbCorreoInfo.setFont(miniFont);
+		lbCorreoInfo.setBounds(25, 210, 300, 30);
+		lbCorreo.setBounds(25, 230, 300, 30);
+		
+		lbUrlInfo.setForeground(azul);
+		lbUrlInfo.setFont(miniFont);
+		lbUrlInfo.setBounds(25, 260, 300, 30);
+		lbUrl.setBorder(borderButtom);
+		lbUrl.setBounds(25, 280, 300, 30);
+		
+		lbRedSocialInfo.setForeground(azul);
+		lbRedSocialInfo.setFont(miniFont);
+		lbRedSocialInfo.setBounds(25, 310, 300, 30);
+		lbRedSocial.setBorder(borderButtom);
+		lbRedSocial.setBounds(25, 330, 300, 30);
+		
+		lbFNacimientoInfo.setForeground(azul);
+		lbFNacimientoInfo.setFont(miniFont);
+		lbFNacimientoInfo.setBounds(25, 390, 300, 30);
+		lbFNacimiento.setBorder(borderButtom);
+		lbFNacimiento.setBounds(25, 410, 300, 30);
+		
+		lbDireccionInfo.setForeground(azul);
+		lbDireccionInfo.setFont(miniFont);
+		lbDireccionInfo.setBounds(25, 470, 300, 30);
+	
+		lbCiudad.setBounds(25, 490, 145, 30);
+		lbEstado.setBounds(170, 490, 145, 30);
+		lbCalle.setBounds(25, 515, 145, 30);
+		lbNum.setBounds(170, 515, 145, 30);
+		lbCP.setBounds(25, 540, 300, 30);
+		lbCP.setBorder(borderButtom);
+		
+		lbNotaInfo.setForeground(azul);
+		lbNotaInfo.setFont(miniFont);
+		lbNotaInfo.setBounds(25, 590, 300, 30);
+		lbNota.setBounds(25, 610, 280, 60);
+		
+		JPanel panel = new JPanel();
+		panel.setBackground(blancoLi);
+		// panel.setLayout(null);
+		
+		panel.setLayout(null);
+		panel.setBounds(0, 0, 320, 730);
+		
+		for (JLabel jLabel : lbEtiquetas) {
+			panel.add(jLabel);
+		}
+		
+		JScrollPane scroll = new JScrollPane();
+		scroll.setBounds(0, 52, 320, 476);
+		scroll.setViewportView(panel);
+		scroll.getViewport().setView(panel);
+		scroll.setBorder(borderButtom);
+		
+		panel.setPreferredSize(new Dimension(300,730));
+		
+		c.add(scroll);
 		c.add(btnEditar);
 		c.add(lbNavigateBar);
-		c.add(lbCelular);
-		c.add(lbTelefono);
-		c.add(telefono);
 		
+		btnEditar.addActionListener(this);
+	}
+
+	@Override
+	public void windowOpened(WindowEvent e) {}
+
+	@Override
+	public void windowClosing(WindowEvent e) {}
+
+	@Override
+	public void windowClosed(WindowEvent e) {}
+
+	@Override
+	public void windowIconified(WindowEvent e) {}
+
+	@Override
+	public void windowDeiconified(WindowEvent e) {}
+
+	/**
+	 * Evento que se encarga de actualiza la
+	 * información al ser reactivada la ventana
+	 */
+	@Override
+	public void windowActivated(WindowEvent e) {
+		cargarData();
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent e) {}
+
+	/**
+	 * Evento que se encarga de iniciar el JFrame
+	 * para la creación de nuevos contactos
+	 */
+	@Override
+	public void actionPerformed(ActionEvent e) {
 		
-		
+		if (e.getSource() == btnEditar) {
+			VentanaNewEdit ventanaNew = new VentanaNewEdit(id);
+			ventanaNew.setVisible(true);
+			dispose();
+		}
 		
 	}
 }
