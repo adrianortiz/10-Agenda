@@ -322,7 +322,6 @@ public class VentanaNewEdit extends JFrame implements ActionListener, FocusListe
 		contact.setCorreo(txtCorreo.getText());
 		contact.setUrl(txtUrl.getText());
 		contact.setRedSocial(txtRedSocial.getText());
-		
 		contact.setCalle(txtCalle.getText());
 		
 		try {
@@ -333,6 +332,12 @@ public class VentanaNewEdit extends JFrame implements ActionListener, FocusListe
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
+		
+		contact.setNum(Integer.parseInt(txtNum.getText()));
+		contact.setCp(Integer.parseInt(txtCP.getText()));
+		contact.setCiudad(txtCiudad.getText());
+		contact.setEstado(txtEstado.getText());
+		contact.setNota(txtNota.getText());
 		
 	}
 
@@ -373,6 +378,8 @@ public class VentanaNewEdit extends JFrame implements ActionListener, FocusListe
 				setDataContacto(contact);
 				
 				if (contactoDao.update(contact)) {
+					VentanaView ventanaView = new VentanaView(id);
+					ventanaView.setVisible(true);
 					super.dispose();
 				} else {
 					JOptionPane.showMessageDialog(null, "Parece que algo salio mal al actulizar, intentelo más tarde.");
