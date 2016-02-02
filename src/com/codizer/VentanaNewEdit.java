@@ -333,8 +333,18 @@ public class VentanaNewEdit extends JFrame implements ActionListener, FocusListe
 			e.printStackTrace();
 		}
 		
-		contact.setNum(Integer.parseInt(txtNum.getText()));
-		contact.setCp(Integer.parseInt(txtCP.getText()));
+		int num = 0;
+		int cp = 0;
+		
+		try {
+			num = Integer.parseInt(txtNum.getText());
+			cp = Integer.parseInt(txtCP.getText());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		contact.setNum(num);
+		contact.setCp(cp);
 		contact.setCiudad(txtCiudad.getText());
 		contact.setEstado(txtEstado.getText());
 		contact.setNota(txtNota.getText());
@@ -357,8 +367,8 @@ public class VentanaNewEdit extends JFrame implements ActionListener, FocusListe
 				Contacto contact = new Contacto();
 				setDataContacto(contact);
 				
-				if (contactoDao.save(contact)) {
-					super.dispose();
+				if (contactoDao.save(contact) == true) {
+					dispose();
 				} else {
 					JOptionPane.showMessageDialog(null, "Parece que algo salio mal al guardar, intentelo más tarde.");
 				}
@@ -380,7 +390,7 @@ public class VentanaNewEdit extends JFrame implements ActionListener, FocusListe
 				if (contactoDao.update(contact)) {
 					VentanaView ventanaView = new VentanaView(id);
 					ventanaView.setVisible(true);
-					super.dispose();
+					dispose();
 				} else {
 					JOptionPane.showMessageDialog(null, "Parece que algo salio mal al actulizar, intentelo más tarde.");
 				}
